@@ -57,12 +57,14 @@ const DraftScreen = ({route, navigation}) => {
       dispatch(setDrafts(newDraft));
     } else {
       let newDraft = [...(draftList || [])];
-      newDraft[route?.params?.id] = {
+      let dataindex = newDraft.indexOf(route?.params?.draft);
+      let editDraft = {
         recipient: recipient,
         subject: subject,
         body: body,
         id: id,
       };
+      newDraft[dataindex] = editDraft;
       await AsyncStorage.setItem('userDraft', JSON.stringify(newDraft));
       dispatch(setDrafts(newDraft));
     }
